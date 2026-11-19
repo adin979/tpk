@@ -31,9 +31,9 @@ function Login(){
     return(
         <div className="minh_100vh d_flex jc_ct bg_linear-gradientF45degKH578ef5Ktransparent m_auto">
             {loading&&<Loading/>}
-            <div className="d_flex pos_rel top_100 p_1remS1remS2remS1rem h_fit jc_ct bg_H65d0f4E ai_ct">
+            <div className="d_flex pos_rel top_100px p_1remS1remS2remS1rem h_fit jc_ct bg_H65d0f4E ai_ct">
                 <FormEl title="LOGIN" 
-                button={{text:"Login",className:"p_12 brd_8 fs_13 fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3S3S4SHb5b3b2E"}}
+                button={{text:"Login",className:"p_12px brd_8px fs_13px fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3pxS3pxS4pxSHb5b3b2E"}}
                  onSubmit={handleSubmit}>
                     <InputField
                         label={{content:"Username"}}

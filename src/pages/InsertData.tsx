@@ -122,17 +122,17 @@ function InsertData(){
         console.log(e)
     }
     return (
-        <div className="maxw_1120 m_0ESauto p_40S28pxS36px Sp_0S14S25 Md_grid Mgtc_1fr">
+        <div className="maxw_1120px m_0ESauto p_40pxS28pxS36px Sp_0S14pxS25px Md_grid Mgtc_1fr">
             {loading&&<Loading/>}
             {/* <div className="d_grid gap_1rem jc_se"> */}
                 {selectedFile?
                 <div className="d_flex pos_rel fd_col bd_1pxSsolid">
-                    <img src={preview?preview:'../assets/hero.png'} className="w_auto maxh_270 " alt="preview"/>
+                    <img src={preview?preview:'../assets/hero.png'} className="w_auto maxh_270px " alt="preview"/>
                     <button type="button" onClick={fileSubmit}>Kirim</button>
                     <button type="button" onClick={()=>setSeleectedFile(null)}>Ganti</button>
                 </div>:
                 <Card title="Input File">
-                <label htmlFor="image" className=" d_flex fd_col ai_ct jc_se h_170 bd_2SdashedSH8ab4ff brd_10 bg_Hf7faff cur_poin p_20 maxw_100P">
+                <label htmlFor="image" className=" d_flex fd_col ai_ct jc_se h_170px bd_2pxSdashedSH8ab4ff brd_10px bg_Hf7faff cur_poin p_20px maxw_100">
                     <span>...</span>
                     <strong>Klik untuk memilih file</strong>
                     <small>JPEG (maks. 5 MB)</small>
@@ -144,11 +144,11 @@ function InsertData(){
             <section>
                 <FormEl title='Input Data' className="" 
                 button={{text:"Kirim",
-                className:"p_12 brd_8 fs_13 fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3S3S4SHb5b3b2E"}} 
+                className:"p_12px brd_8px fs_13px fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3pxS3pxS4pxSHb5b3b2E"}} 
                 onSubmit={handleSubmit}>
                     <article>
                     <Card title="Input Data Kartu Keluarga">
-                        <div className="d_grid Mgtc_repeatF2EKminmaxF0KS1fr gap_17pxS20px maxw_100P">
+                        <div className="d_grid Mgtc_repeatF2EKminmaxF0KS1fr gap_17pxS20px maxw_100">
                             {(Object.keys(dataKk) as (keyof DataKk)[]).map((v)=>(
                                 v !== 'id' &&
                                 <InputField 
@@ -233,7 +233,7 @@ function InsertData(){
                             </div>
                         </Card>
                         ))}
-                    <button className=" bg _Hf1f5f9 cl_H334155E bd_1SsolidSHcbd5e1E p_12 brd_8 fs_13 fw_600E cur_poin bsd_3S3S8SHacacac" type="button" onChange={addCount}>Tambah Anggota Keluarga</button>
+                    <button className=" bg _Hf1f5f9 cl_H334155E bd_1pxSsolidSHcbd5e1E p_12px brd_8px fs_13px fw_600E cur_poin bsd_3pxS3pxS8pxSHacacac" type="button" onChange={addCount}>Tambah Anggota Keluarga</button>
                         {loading && <div className="r_0 b_0 bg_rgbaF0EK0EK0EKD1E"><p>loading ...</p></div>}
                 </FormEl>
                 </section>

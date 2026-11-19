@@ -253,8 +253,7 @@ const sparator={ //values css
   D:'.',
   K:',',
   H:'#',
-  I:'!mportant',
-  P:'%',
+  IM:'!important',
   E:'',
   L:'/',
   C:'"'
@@ -269,8 +268,8 @@ const replaceChar=(key)=>{
     const child =key.substring(fIndex+1)
     key=`${parent}(${replaceChar(child)})`
   }
-  key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'px '):key
-  key.match(/\d$/)?key=key+'px':key
+  key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key
+  key.match(/\d$/)?key=key+'%':key
   const pattern = new RegExp(Object.keys(sparator).join('|'),'g');
   return key.replace(pattern,match=>sparator[match])||key;
 }

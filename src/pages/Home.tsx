@@ -40,10 +40,10 @@ function Home() {
     dataKeluarga()
   }, []);
   return (
-    <div className='bg_Hffffff p_12 brd_12 bd_1SsolidSHe2e8f0E d_flex fd_col gap_10'>
+    <div className='bg_Hffffff p_12px brd_12px bd_1SsolidSHe2e8f0E d_flex fd_col gap_10px'>
       {loading&&<Loading/>}
       <div className='d_flex jc_sb ai_ct'>
-        <span className='fw_600E ta_ct fs_14 cl_H334155E m_auto'>SYSTEM INFORMASI TIM PENDAMPING KELUARGA (TPK)</span>
+        <span className='fw_600E ta_ct fs_14px cl_H334155E m_auto'>SYSTEM INFORMASI TIM PENDAMPING KELUARGA (TPK)</span>
       </div>
         <div className="d_flex jc_ct fd_col Mgap_2rem Mp_2rem">
           {/* informasi */}
@@ -59,7 +59,7 @@ function Home() {
           </Card>
         <Card title='Profil singkat Tim Pendamping'>
           <div className='d_flex fd_col gap_1em ta_start'>
-            <div >Anggota</div>
+            <div className='ff_CJetBrainsSMonoCKCsans-serifC'>Anggota</div>
             <ul>
               <li>Anggota 1</li>
               <li>Anggota 2</li>

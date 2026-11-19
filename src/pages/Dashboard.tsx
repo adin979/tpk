@@ -162,31 +162,31 @@ function Home() {
             .finally(()=>{setLoading(false)})
     }
     return (
-        <div className='minh_100vh Sp_0S1rem p_2 d_flex gap_12 fd_col'>
+        <div className='minh_100vh Sp_0S1rem p_2px d_flex gap_12px fd_col'>
         {loading&&<Loading/>}
         <SearchBar options={[1,2,5]} select={{onChange:(e)=>setLimit(parseInt((e.target as HTMLSelectElement).value)),value:limit}}/> 
             <div className='d_grid fs_1rem '>
-                <section className='d_flex gap_12 fd_col'>
+                <section className='d_flex gap_12px fd_col'>
                         {/* card items */}
                     {dataKk.map((kk,index)=>(
                         <article key={index+1} 
-                        className='bg_Hffffff bd_1SsolidSHe2e8f0E box-shadow_0S1S3SrgbaF0K0K0K0D05E d_flex fd_col p_16 brd_12'>
-                            <div className=" p_16 brd_12 d_flex jc_sb ai_ct">
-                                <div className="d_flex fd_col gap_4">
-                                    <div className="d_flex ai_ct gap_6">
-                                        <span className="bg_Hdbeafe clH1d4ed8E fs_11 fw_600E p_2S8 brd_99">#1</span>
-                                        <span className="fs_12 cl_H64748b ff_monoscape">{kk.no_kk}</span>
+                        className='bg_Hffffff bd_1pxSsolidSHe2e8f0E box-shadow_0S1S3SrgbaF0K0K0K0D05E d_flex fd_col p_16px brd_12px'>
+                            <div className=" p_16px brd_12px d_flex jc_sb ai_ct">
+                                <div className="d_flex fd_col gap_4px">
+                                    <div className="d_flex ai_ct gap_6px">
+                                        <span className="bg_Hdbeafe clH1d4ed8E fs_11 fw_600E p_2pxS8px brd_99px">#1</span>
+                                        <span className="fs_12px cl_H64748b ff_monoscape">{kk.no_kk}</span>
                                     </div>
-                                    <h3 className="m_0 fs_15 fw_700E cl_H0f172a">{kk.nama_kepala_keluarga}</h3>
-                                    <span className="fs_12 cl_H64748b">Kepala Keluarga</span>
+                                    <h3 className="m_0px fs_15 fw_700E cl_H0f172a">{kk.nama_kepala_keluarga}</h3>
+                                    <span className="fs_12px cl_H64748b">Kepala Keluarga</span>
                                 </div>
                                 {selectedKk?.no_kk===kk.no_kk?
-                                    <button className="bg_H2563eb cl_Hffffff bd_nn p_8S14 brd_8 fs_12 fw_600E cur_poin" onClick={()=>setSelectedKk(null)}>Tutup</button>
-                                    :<button className="bg_H2563eb cl_Hffffff bd_nn p_8S14 brd_8 fs_12 fw_600E cur_poin" onClick={()=>detailHandle(kk)}>Detail</button>
+                                    <button className="bg_H2563eb cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_600E cur_poin" onClick={()=>setSelectedKk(null)}>Tutup</button>
+                                    :<button className="bg_H2563eb cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_600E cur_poin" onClick={()=>detailHandle(kk)}>Detail</button>
                                 }
                             </div>
                         {selectedKk?.id === kk.id &&
-                        <div className=' mt_1rem d_flex fd_col gap_12 Sfs_10'>
+                        <div className=' mt_1rem d_flex fd_col gap_12px Sfs_10px'>
                             <span >Anggota keluarga : </span>
                             {warga.map((w,i)=>(
                                 <div key={i+1} className='d_grid gtc_1frS1fr bd_1pxSsolidSHe2e8f0E box-shadow_0S1S3SrgbaF0K0K0K0D05E p_8 brd_8 ' >
@@ -199,7 +199,7 @@ function Home() {
                     ))}
                 </section>
             </div>
-            <div className='d_flex p_12 jc_sb cur_poin'><span onClick={()=>setOffset(10)}>{'<<'}</span><span onClick={()=>setOffset(10)}>{'>>'}</span></div>
+            <div className='d_flex p_12px jc_sb cur_poin'><span onClick={()=>setOffset(10)}>{'<<'}</span><span onClick={()=>setOffset(10)}>{'>>'}</span></div>
         </div>
   );
 }
