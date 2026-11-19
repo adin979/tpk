@@ -3,8 +3,8 @@ type FetchOptions = Omit<RequestInit, 'body'> & {
     body?: unknown
 }
 
-// const BASE_URL = import.meta.env.VITE_BACKEND_URL
-const BASE_URL = 'http://localhost:3001'
+const BASE_URL = import.meta.env.VITE_BACKEND_URL
+// const BASE_URL = 'http://localhost:3001'
 
 export default async function customFetch(url: string, options: FetchOptions = {}) {
     const { body, headers: requestHeaders, ...rest } = options
