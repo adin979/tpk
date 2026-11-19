@@ -1,0 +1,16 @@
+#root{
+    padding: 0;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    #wrapper{
+        display:grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+        'sidebar navbar'
+        'sidebar main'
+        /* 'footer footer'  */
+        ;
+    }
+}
