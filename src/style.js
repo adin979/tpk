@@ -48,50 +48,15 @@ if(!dynamicSheet && typeof document !== undefined){
   document.head.appendChild(styleElement)
   dynamicSheet = styleElement.sheet
 }
-const sparator={ //values css
-  S:' ',
-  D:'.',
-  K:',',
-  H:'#',
-  I:'!mportant',
-  P:'%',
-  E:'',
-  L:'/'
-}
-// ===============================================================================
-const replaceChar=(key)=>{
-  if(key.includes('F')){
-    const fIndex= key.indexOf('F')
-    const parent=valAbr(key.substring(0,fIndex))
-    const child =key.substring(fIndex+1)
-    key=`${parent}(${replaceChar(child)})`
-  }
-  key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'px '):key
-  key.match(/\d$/)?key=key+'px':key
-  const pattern = new RegExp(Object.keys(sparator).join('|'),'g');
-  return key.replace(pattern,match=>sparator[match])||key;
-}
+// Fungsi untuk mengolah kelas
+const processedNodes=new WeakMap()
 // ==============================================================================
 // Menghilangkan duplikasi dalam array
 const newSet=(arr)=>[...new Set(arr)];
+// ==============================================================================// ===============================================================================
+// Fungsi pertama berjalan
+// Memproses class dalam tag HTML
 // ===============================================================================
-// Normalisasi aturan CSS
-const normalizeRule=(rule)=>rule.trim();
-// Menyisipkan aturan CSS ke dalam stylesheet jika belum ada
-const existingRules = new Set();
-function sheetRule(rule) {
-  const normalizedRule = normalizeRule(rule);
-  try{
-    if (!existingRules.has(normalizedRule)) {
-      dynamicSheet.insertRule(rule,dynamicSheet.cssRules.length);
-      existingRules.add(normalizedRule);
-    }
-  }catch(e){console.warn('letscss: Gagal menyisipkan rule ->',rule)}
-}
-// =================================================================================
-
-// Fungsi untuk mengolah kelas
-const processedNodes=new WeakMap()
 function cls(nodeList) {
   const classes = [];
   nodeList.forEach(node => {
@@ -101,23 +66,34 @@ function cls(nodeList) {
     if (classList)classes.push(...classList.split(/\s+/));//jika ada classlist,simpan di classes, rresult[class_list,classlist,class-list_clas-list]
     processedNodes.set(node,classList)
   });
+
+// ======================================================================================
 // bersihkan class yang sama
+// ======================================================================================
   const uniqueClasses = newSet(classes);
   uniqueClasses.forEach(className => {
     const firstUnderscore=className.indexOf('_')
     if(firstUnderscore === -1)return;
+// pembagian key dan value
     const rawProp=className.substring(0,firstUnderscore)
     const rawVal=className.substring(firstUnderscore + 1)
-    if(rawProp&&rawVal)prosesRule(className,rawProp,rawVal)
-  });
-}
+// proses kalau memenuhi sarat
+// =====================================================================================
 // Fungsi untuk membangun aturan CSS
-function prosesRule(className,rawProp,rawVal){
-  const mediaPrefix = className.charAt(0)
-  const cleanProp = rawProp.replace(/^(S|M|L)/,'')
-  const propName = keyAbr(cleanProp)
-  const value = valAbr(replaceChar(rawVal))
-  let ruleStr = `.${className} { ${propName} : ${value};`
+// Proses utama 
+// =====================================================================================
+  // cek classname====
+  const mediaPrefix = className.charAt(0)//cek apa ada karakter prefix
+  const arrayCombine=combinator(className,rawProp)
+  className=arrayCombine[0]
+  const cleanRawProp=arrayCombine[1]
+  // cek prop
+  const cleanProp = cleanRawProp.replace(/^(S|M|L)/,'')//bersihkan prop dari karakter prefix
+  const propName = keyAbr(cleanProp)//terjemahkan singkatan dari properti/key
+  // cek value
+  const value = valAbr(replaceChar(rawVal))//terjemahkan singkatan untuk value
+  // buat rule
+  const ruleStr = `.${className} { ${propName} : ${value};`
   switch(mediaPrefix){
     case 'S':
         small([ruleStr])
@@ -131,9 +107,11 @@ function prosesRule(className,rawProp,rawVal){
     default:
         sheetRule(ruleStr)
   }
+})
 }
-// =======================================================================
-// Membuat aturan media query
+// ==============================================================================
+// Aturan media query responsip
+// ==============================================================================
 function small(selector) {
   const uniqueSelector = newSet(selector);
   const rule = `@media (max-width: 767px) { ${uniqueSelector.join('\n')} }`;
@@ -143,6 +121,7 @@ function small(selector) {
 function medium(selector) {
   const uniqueSelector = newSet(selector);
   const rule = `@media (min-width: 768px) { ${uniqueSelector.join('\n')} }`;
+  console.log(rule)
   sheetRule(rule);
 }
 
@@ -151,10 +130,62 @@ function large(selector) {
   const rule = `@media (min-width: 992px) { ${uniqueSelector.join('\n')} }`;
   sheetRule(rule);
 }
+// ==========================================================================
+// 
+// Normalisasi aturan CSS
+const normalizeRule=(rule)=>rule.trim();
+// Menyisipkan aturan CSS ke dalam stylesheet jika belum ada
+const existingRules = new Set();
+// =======================================================================
+// Menyimpan rule kedalam sheet
+// ===============================================================================
+function sheetRule(rule) {
+  const normalizedRule = normalizeRule(rule);
+  try{
+    if (!existingRules.has(normalizedRule)) {
+      dynamicSheet.insertRule(rule,dynamicSheet.cssRules.length);
+      existingRules.add(normalizedRule);
+    }
+  }catch(e){console.warn('letscss: Gagal menyisipkan rule ->',rule)}
+}
+// ===============================================================================
+// Menerjemahkan singkatan key properti CSS
 // ======================================================================
-// Menerjemahkan singkatan properti CSS
+function combinator(className,rawProp){
+  const pseudoClass=['hov','act','foc','link','visit']
+  const pseudoEl=['fline','flet','bef','aft','mar','select','drop']
+  // cari index tanda '-'
+  const findIndex = className.indexOf('-');
+  // cari kata pertama sebelum '-'
+  let firstIndex = className.substring(0,findIndex);
+  firstIndex=firstIndex.replace(/^S|M|L/,'')||firstIndex
+  rawProp=rawProp.replace(/^S|M|L/,'')||rawProp
+  if(pseudoClass.includes(firstIndex)){
+  rawProp=rawProp.replace(`${firstIndex}-`,'')
+    switch(firstIndex){
+      case 'hov':className=`${className}:hover`;break
+      case 'foc':className=`${className}:focus`;break
+      case 'act':className=`${className}:active`;break
+      case 'link':className=`${className}:link`;break
+      case 'visit':className=`${className}:visited`;break
+    }
+  }else if(pseudoEl.includes(firstIndex)){
+  rawProp=rawProp.replace(`${firstIndex}-`,'')
+    switch(firstIndex){
+      case 'fline':className=`${className}::first-line`;break
+      case 'flet':className=`${className}::first-letter`;break
+      case 'bef':className=`${className}::before`;break
+      case 'aft':className=`${className}::after`;break
+      case 'mar':className=`${className}::marker`;break
+      case 'select':className=`${className}::selected`;break
+      case 'drop':className=`${className}::backdrop`;break
+    }
+  }
+  return [className,rawProp]
+}
 
 function keyAbr(key) {
+
   const obj = {
     ac:'align-content',
     ai:'align-items',
@@ -214,6 +245,38 @@ function keyAbr(key) {
   return obj[key] || key;
 }
 
+// ===============================================================================
+// Sparator dalam value css
+// ===============================================================================
+const sparator={ //values css
+  S:' ',
+  D:'.',
+  K:',',
+  H:'#',
+  I:'!mportant',
+  P:'%',
+  E:'',
+  L:'/',
+  C:'"'
+}
+// ===============================================================================
+// Mengoolah sparator value
+// ===============================================================================
+const replaceChar=(key)=>{
+  if(key.includes('F')){
+    const fIndex= key.indexOf('F')
+    const parent=valAbr(key.substring(0,fIndex))
+    const child =key.substring(fIndex+1)
+    key=`${parent}(${replaceChar(child)})`
+  }
+  key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'px '):key
+  key.match(/\d$/)?key=key+'px':key
+  const pattern = new RegExp(Object.keys(sparator).join('|'),'g');
+  return key.replace(pattern,match=>sparator[match])||key;
+}
+// ==================================================================================
+// Menerjemahkan value css
+// ==================================================================================
 function valAbr(val){
   const obj={
     s:'small',
@@ -243,8 +306,10 @@ function valAbr(val){
   }
   return obj[val]||val
 }
-// ====================================================================
+
+// =================================================================================
 // Pemrosesan gaya
+// ====================================================================
   let debounceTimeout;
 function init(){
   if(typeof document === 'undefined')return;

@@ -19,7 +19,7 @@ function SideBar({...props}){
         ${minim?'w_20':'w_230'}
         ${!open?'Strf_trsxF-100P':'w_100vw h_100vh'}
         `} onClick={()=>setOpen(!open)}>
-            <button className={`Md_nn pos_fix m_3S14 z_100E h_50 d_grid ai_ct ${!open?'l_100P':''}`} onClick={()=>setOpen(!open)}>
+            <button className={`Md_nn pos_fix m_3S14 z_100E Sh_50 Sd_grid ai_ct ${!open?'l_100P':''}`} onClick={()=>setOpen(!open)}>
                 <span className="d_block w_40 h_4 bg_grey"></span>
                 <span className="d_block w_40 h_4 bg_grey"></span>
                 <span className="d_block w_40 h_4 bg_grey"></span>
