@@ -29,7 +29,7 @@ function SideBar({...props}){
                 <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'trf_rotate-50deg trfo_98':''}`}></span>
             </button>
             <div className={`p_0_1D25rem bd_1px_solid bc_var-border-color h_4rem d_flex ai_ct jc_ct 
-            ${!open?'ops_0E':''}
+            ${!open?'Mops_0E':''}
                 `}>
                 MENU UTAMA
             </div>
@@ -41,7 +41,7 @@ function SideBar({...props}){
                 <div><h3>MENU</h3></div>
                 <Navbar/>
                 <div className="w_100 ta_end">
-                    <span className="bg_rgba-0K0K0K0E p_0 pos_fix cur_poin d_contents " onClick={()=>setMinim(!minim)}>{'<<'}</span>
+                    <span className="bg_rgba-0K0K0K0E Sd_nn p_0 pos_fix cur_poin d_contents " onClick={()=>setMinim(!minim)}>{'<<'}</span>
                 </div>
             </div>
         </aside>
