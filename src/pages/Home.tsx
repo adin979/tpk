@@ -45,9 +45,9 @@ function Home() {
       <div className='d_flex jc_sb ai_ct'>
         <span className='fw_600E ta_ct fs_14px cl_H334155E m_auto'>SYSTEM INFORMASI TIM PENDAMPING KELUARGA (TPK)</span>
       </div>
-        <div className="d_flex jc_ct fd_col Mgap_2rem Mp_2rem">
-          {/* informasi */}
-          <div className="d_grid Sgtc_1fr Mgtc_repeatF2KminmaxF0K2fr Mgap_1rem jc_se">
+      <div className="d_flex jc_ct fd_col Mgap_2rem Mp_2rem">
+        {/* informasi */}
+        <div className="d_grid Sgtc_1fr Mgtc_repeat-2E__minmax-0px__1fr Mgap_1rem jc_se">
           <Card title='INFOGRAFIS'>
             <div className='d_flex fd_col ta_start gap_1em'>
               <div>Jumlah Keluarga : {kk.length}</div>
@@ -57,20 +57,20 @@ function Home() {
               <div>Kategori Usia</div>
             </div>
           </Card>
-        <Card title='Profil singkat Tim Pendamping'>
-          <div className='d_flex fd_col gap_1em ta_start'>
-            <div className='ff_CJetBrainsSMonoCKCsans-serifC'>Anggota</div>
-            <ul>
-              <li>Anggota 1</li>
-              <li>Anggota 2</li>
-              <li>Anggota 3</li>
-              <li>Anggota 4</li>
-              <li>Anggota 5</li>
-            </ul>
-          </div>
-        </Card>
+          <Card title='Profil singkat Tim Pendamping'>
+            <div className='d_flex fd_col gap_1em ta_start'>
+              <div className='ff_CJetBrainsSMonoCKCsans-serifC'>Anggota</div>
+              <ul>
+                <li>Anggota 1</li>
+                <li>Anggota 2</li>
+                <li>Anggota 3</li>
+                <li>Anggota 4</li>
+                <li>Anggota 5</li>
+              </ul>
+            </div>
+          </Card>
         </div>
-        {/* acara */}
+      {/* acara */}
         <div>
           <div>
             <h2>Agenda</h2>
@@ -98,7 +98,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </div>
+   </div>
   );
 }
 

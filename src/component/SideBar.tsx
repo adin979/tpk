@@ -14,25 +14,34 @@ function SideBar({...props}){
         <aside {...props} className={`
          Mpos_rel Spos_fix 
         h_100 z_99E 
-        tst_trfS0D3sSease-in-out grid-area_sidebar
-        Sh_100vh  bg_rgbaF110K110K130K0D5E
+        tst_trf_0D3s_ease-in-out grid-area_sidebar
+        Sh_85vh  bg_var-bg-surface
+        bd_1px_solid
+        bc_var-border-color
         ${minim?'w_20px':'w_230px'}
-        ${!open?'Strf_trsxF-100':'w_100vw h_100vh'}
+        ${!open?'Strf_trsx--100':''}
         `} onClick={()=>setOpen(!open)}>
-            <button className={`Md_nn pos_fix m_3pxS14px z_100E Sh_50px Sd_grid ai_ct ${!open?'l_100':''}`} onClick={()=>setOpen(!open)}>
-                <span className="d_block w_40px h_4px bg_grey"></span>
-                <span className="d_block w_40px h_4px bg_grey"></span>
-                <span className="d_block w_40px h_4px bg_grey"></span>
+            <button className={`Md_nn pos_fix bg_rgba-0__0__0__0E 
+                bd_1px_solid bc_var-border-color m_D4rem_D75rem 
+                z_100E Sh_50px Sd_grid ai_ct ${!open?'l_100':'Strf_trsx-300'}`} onClick={()=>setOpen(!open)}>
+                <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'trf_rotate--50deg trfo_98':''}`}></span>
+                <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'ops_0E':''}`}></span>    
+                <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'trf_rotate-50deg trfo_98':''}`}></span>
             </button>
+            <div className={`p_0_1D25rem bd_1px_solid bc_var-border-color h_4rem d_flex ai_ct jc_ct 
+            ${!open?'ops_0E':''}
+                `}>
+                MENU UTAMA
+            </div>
             <div className={`
-            ${!open?'Strf_trsxF-100':''}
-            ${minim?'trf_trsxF-200px':''}
-            Sbg_grey
-            w_230px pos_fix d_flex fd_col gap_12px p_50pxS0 ai_ct flex_100`}>
+            tst_var-transit
+            ${!open?'Strf_trs--100':''}
+            ${minim?'trf_trsx--200px':''}
+            w_230px pos_fix d_flex fd_col gap_12px p_50px_0 ai_ct flex_100`}>
                 <div><h3>MENU</h3></div>
                 <Navbar/>
                 <div className="w_100 ta_end">
-                    <span className="bg_rgbaF0K0K0K0E bd_nn p_0 pos_fix cur_poin d_contents " onClick={()=>setMinim(!minim)}>{'<<'}</span>
+                    <span className="bg_rgba-0K0K0K0E p_0 pos_fix cur_poin d_contents " onClick={()=>setMinim(!minim)}>{'<<'}</span>
                 </div>
             </div>
         </aside>

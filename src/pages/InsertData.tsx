@@ -126,7 +126,7 @@ function InsertData(){
             {loading&&<Loading/>}
             {/* <div className="d_grid gap_1rem jc_se"> */}
                 {selectedFile?
-                <div className="d_flex pos_rel fd_col bd_1pxSsolid">
+                <div className="d_flex pos_rel fd_col bd_1px_solid">
                     <img src={preview?preview:'../assets/hero.png'} className="w_auto maxh_270px " alt="preview"/>
                     <button type="button" onClick={fileSubmit}>Kirim</button>
                     <button type="button" onClick={()=>setSeleectedFile(null)}>Ganti</button>
@@ -148,12 +148,12 @@ function InsertData(){
                 onSubmit={handleSubmit}>
                     <article>
                     <Card title="Input Data Kartu Keluarga">
-                        <div className="d_grid Mgtc_repeatF2EKminmaxF0KS1fr gap_17pxS20px maxw_100">
+                        <div className="d_grid Mgtc_repeat-2E__minmax-0__1fr gap_17px_20px maxw_100">
                             {(Object.keys(dataKk) as (keyof DataKk)[]).map((v)=>(
                                 v !== 'id' &&
                                 <InputField 
                                 key={v}
-                                label={{content:v.replace(/_/g,' ').toLocaleUpperCase(),className:v === 'alamat'?'Mgrid-column_1ESLS-1E':''}}
+                                label={{content:v.replace(/_/g,' ').toLocaleUpperCase(),className:v === 'alamat'?'Mgrid-column_1E_L_-1E':''}}
                                 id={v}
                                 name={v}
                                 value={dataKk[v]}
@@ -233,7 +233,7 @@ function InsertData(){
                             </div>
                         </Card>
                         ))}
-                    <button className=" bg _Hf1f5f9 cl_H334155E bd_1pxSsolidSHcbd5e1E p_12px brd_8px fs_13px fw_600E cur_poin bsd_3pxS3pxS8pxSHacacac" type="button" onChange={addCount}>Tambah Anggota Keluarga</button>
+                    <button className=" bg _Hf1f5f9 cl_H334155E bd_1px_solid_Hcbd5e1E p_12px brd_8px fs_13px fw_600E cur_poin bsd_3px_3px_8px_Hacacac" type="button" onChange={addCount}>Tambah Anggota Keluarga</button>
                         {loading && <div className="r_0 b_0 bg_rgbaF0EK0EK0EKD1E"><p>loading ...</p></div>}
                 </FormEl>
                 </section>

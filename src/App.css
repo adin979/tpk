@@ -41,6 +41,29 @@ body::selection{
         transform: translateY(0);
     }
 }
+
+:root{
+    /* typograph */
+    --font-sans:'Plus Jakarta Sans','Inter',system-ui,-aple-system,sans-serif;
+    --font-mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+    /* Coloring */
+    --bg-app:#f8fafc;
+    --bg-surface:#ffffff;
+    --text-primary:#0f172a;
+    --text-secondary:#475569;
+    --text-muted:#64748b;
+    /* bordering */
+    --accent:#2563eb;
+    --accent-hover:#1d4ed8;
+    --accent-soft:#eff6ff;
+    --border-color:#e2e8f0;
+    --rad-sm:8px;
+    --rad-md:12px;
+    --rad-lg:16px;
+    --shadow-card:0 1px 3px rgba(15,32,42,0.06)
+    --transit:transform 0.3s ease-in-out
+}
+
 @media (min-width: 768px) {
     #wrapper{
         display:grid;

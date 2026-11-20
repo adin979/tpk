@@ -170,14 +170,14 @@ function Home() {
                         {/* card items */}
                     {dataKk.map((kk,index)=>(
                         <article key={index+1} 
-                        className='bg_Hffffff bd_1pxSsolidSHe2e8f0E box-shadow_0S1S3SrgbaF0K0K0K0D05E d_flex fd_col p_16px brd_12px'>
+                        className='bg_Hffffff bd_1px_solid_He2e8f0E box-shadow_0_1px_3px_rgba-0__0__0__0D05E d_flex fd_col p_16px brd_12px'>
                             <div className=" p_16px brd_12px d_flex jc_sb ai_ct">
                                 <div className="d_flex fd_col gap_4px">
                                     <div className="d_flex ai_ct gap_6px">
-                                        <span className="bg_Hdbeafe clH1d4ed8E fs_11 fw_600E p_2pxS8px brd_99px">#1</span>
+                                        <span className="bg_Hdbeafe clH1d4ed8E fs_11px fw_600E p_2pxS8px brd_99px">#1</span>
                                         <span className="fs_12px cl_H64748b ff_monoscape">{kk.no_kk}</span>
                                     </div>
-                                    <h3 className="m_0px fs_15 fw_700E cl_H0f172a">{kk.nama_kepala_keluarga}</h3>
+                                    <h3 className="m_0px fs_15px fw_700E cl_H0f172a">{kk.nama_kepala_keluarga}</h3>
                                     <span className="fs_12px cl_H64748b">Kepala Keluarga</span>
                                 </div>
                                 {selectedKk?.no_kk===kk.no_kk?

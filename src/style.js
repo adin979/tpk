@@ -121,7 +121,6 @@ function small(selector) {
 function medium(selector) {
   const uniqueSelector = newSet(selector);
   const rule = `@media (min-width: 768px) { ${uniqueSelector.join('\n')} }`;
-  console.log(rule)
   sheetRule(rule);
 }
 
@@ -193,6 +192,7 @@ function keyAbr(key) {
     b: 'bottom',
     // border
     bb:'border-bottom',
+    bc:'border-color',
     bd:'border',
     bg: 'background',
     bl:'border-left',
@@ -212,8 +212,9 @@ function keyAbr(key) {
     h: 'height',
     jc: 'justify-content',
     ji:'justify-items',
-    ld:'list-decoration',
     l: 'left',
+    ld:'list-decoration',
+    lh:'line-height',
     m: 'margin',
     mb: 'margin-bottom',
     ml: 'margin-left',
@@ -235,7 +236,9 @@ function keyAbr(key) {
     td:'text-decoration',
     t: 'top',
     tst:'transition',
+    tstd:'transition-duration',
     trf:'transform',
+    trfo:'transform-origin',
     trs:'translate',
     trsx:'translateX',
     trsy:'translateY',
@@ -250,6 +253,8 @@ function keyAbr(key) {
 // ===============================================================================
 const sparator={ //values css
   S:' ',
+  __:',',
+  _:' ',
   D:'.',
   K:',',
   H:'#',
@@ -262,16 +267,95 @@ const sparator={ //values css
 // Mengoolah sparator value
 // ===============================================================================
 const replaceChar=(key)=>{
-  if(key.includes('F')){
-    const fIndex= key.indexOf('F')
-    const parent=valAbr(key.substring(0,fIndex))
-    const child =key.substring(fIndex+1)
-    key=`${parent}(${replaceChar(child)})`
+  const func={
+    asoc:'acos',
+    asin:'asin',
+    atan:'atan',
+    atan2:'atan2',
+    attr:'attr',
+    blur:'blur',
+    gright:'brightness',
+    calc:'calc',
+    circle:'circle',
+    clamp:'clamp',
+    cl:'color',
+    clmix:'color-mix',
+    conic:'conic-gradient',
+    cont:'contras',
+    cos:'cos',
+    count:'counter',
+    counts:'counters',
+    cubic:'cubic-bezier',
+    drop:'drop-shadow',
+    ell:'ellipe',
+    exp:'exp',
+    fit:'fit-content',
+    gray:'grayscale',
+    hsl:'hsl',
+    hsla:'hsla',
+    hr:'hue-rotate',
+    hwb:'hwb',
+    hypot:'hypot',
+    inset:'inset',
+    linear:'linear-gradient',
+    log:'log',
+    mat:'matrix',
+    mat3:'matrix3d',
+    max:'max',
+    min:'min',
+    minmax:'minmax',
+    opc:'opacity',
+    radial:'radial-gradient',
+    rem:'rem',
+    repeat:'repeat',
+    repcon:'repeating-conic-gradient',
+    reprad:'repeating-radial-gradient',
+    replin:'repeating-linear-gradient',
+    rgb:'rgb',
+    rgba:'rgba',
+    rotate:'rotate',
+    rotate3d:'retate3d',
+    rotatex:'rotateX',
+    rotaty:'rotateY',
+    rotatez:'rotateZ',
+    round:'round',
+    sat:'saturate',
+    scale:'scale',
+    scale3d:'scale3d',
+    scalex:'scaleX',
+    scaley:'scaleY',
+    ssepia:'sepia',
+    sin:'sin',
+    skew:'skew',
+    skewx:'skewX',
+    skewy:'skewY',
+    sqrt:'sqrt',
+    trs:'translate',
+    trsx:'translateX',
+    trsy:'translateY',
+    trsz:'translateZ',
+    url:'url',
+    var:'var',
+    xywh:'xywh'
   }
-  key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key
+  const indexStrip=key.indexOf('-')
+  const firsStrip=key.substring(0,indexStrip)
+  const firstIndex=firsStrip.match(/(?:_|\s*)([a-z]+)/)||[]
+  if(Object.keys(func).includes(firstIndex[1])){
+    const addChar=firsStrip.replace(firstIndex[1],'')
+    const parent=func[firstIndex[1]]
+    let child =key.substring(indexStrip+1)
+    if(firstIndex[1] === 'var')child=`--${child}`
+    key=`${addChar}${parent}(${replaceChar(child)})`
+    console.log(key)
+  }
+  if(key.match(/(?<=\D)0\d/g))key=key.replace(key.match(/(?<=\D)0\d/g),match=>match.split('').join('.'))
+    key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key
   key.match(/\d$/)?key=key+'%':key
+if(key.match(/\d+(?=^_)_/g))console.log(key)
   const pattern = new RegExp(Object.keys(sparator).join('|'),'g');
-  return key.replace(pattern,match=>sparator[match])||key;
+  key=key.replace(pattern,match=>sparator[match])||key;
+  return key 
 }
 // ==================================================================================
 // Menerjemahkan value css
@@ -301,7 +385,6 @@ function valAbr(val){
     trs:'translate',
     trsx:'translateX',
     trsy:'translateY'
-
   }
   return obj[val]||val
 }
@@ -309,7 +392,6 @@ function valAbr(val){
 // =================================================================================
 // Pemrosesan gaya
 // ====================================================================
-  let debounceTimeout;
 function init(){
   if(typeof document === 'undefined')return;
   const style = () =>{
@@ -322,6 +404,7 @@ function init(){
     setTimeout(style,50)
   }
   // Debounce untuk menghindari pembaruan yang terlalu cepat
+  let debounceTimeout;
   const observer = new MutationObserver(() => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(style, 50);
