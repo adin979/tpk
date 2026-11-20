@@ -16,7 +16,8 @@ function SideBar({...props}){
         h_100 z_99E 
         tst_trf_0D3s_ease-in-out grid-area_sidebar
         Sh_85vh  bg_var-bg-surface
-        bd_1px_solid_var-border-color
+        bd_1px_solid
+        bc_var-border-color
         ${minim?'w_20px':'w_230px'}
         ${!open?'Strf_trsx--100':''}
         `} onClick={()=>setOpen(!open)}>
@@ -39,7 +40,7 @@ function SideBar({...props}){
             w_230px pos_fix d_flex fd_col gap_12px p_50px_0 ai_ct flex_100`}>
                 <div><h3>MENU</h3></div>
                 <Navbar/>
-                <div className="w_100 ta_end">
+                <div className="w_100 ta_end Sd_nn">
                     <span className="bg_rgba-0K0K0K0E Sd_nn p_0 pos_fix cur_poin d_contents " onClick={()=>setMinim(!minim)}>{'<<'}</span>
                 </div>
             </div>

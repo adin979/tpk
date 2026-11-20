@@ -66,7 +66,6 @@ function cls(nodeList) {
     if (classList)classes.push(...classList.split(/\s+/));//jika ada classlist,simpan di classes, rresult[class_list,classlist,class-list_clas-list]
     processedNodes.set(node,classList)
   });
-
 // ======================================================================================
 // bersihkan class yang sama
 // ======================================================================================
