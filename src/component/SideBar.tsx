@@ -16,8 +16,7 @@ function SideBar({...props}){
         h_100 z_99E 
         tst_trf_0D3s_ease-in-out grid-area_sidebar
         Sh_85vh  bg_var-bg-surface
-        bd_1px_solid
-        bc_var-border-color
+        bd_1px_solid_var-border-color
         ${minim?'w_20px':'w_230px'}
         ${!open?'Strf_trsx--100':''}
         `} onClick={()=>setOpen(!open)}>
