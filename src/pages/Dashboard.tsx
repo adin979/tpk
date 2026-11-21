@@ -31,7 +31,7 @@ function Home() {
         setSelectedKk(null)
         setSelectedKk(kk)
         setLoading(true)
-        return customFetch(`/kk/${kk.no_kk}/warga`)
+        return customFetch(`/warga/${kk.no_kk}`)
         .then(res=>res.data)
         .then(data=>setWarga(data))
         .catch(error=>error)

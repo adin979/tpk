@@ -211,6 +211,7 @@ function keyAbr(key) {
     h: 'height',
     jc: 'justify-content',
     ji:'justify-items',
+    js:'justify-self',
     l: 'left',
     ld:'list-decoration',
     lh:'line-height',
@@ -341,18 +342,15 @@ const replaceChar=(key)=>{
   const indexStrip=key.indexOf('-')
   const firsStrip=key.substring(0,indexStrip)
   const firstIndex=firsStrip.split('_').pop()
-  // const isExsist= 
   if(Object.keys(func).includes(firstIndex)){
     const addChar=firsStrip.replace(firstIndex,'')
     const parent=func[firstIndex]
     let child =key.substring(indexStrip+1)
     if(firstIndex === 'var')child=`--${child}`
     key=`${addChar}${parent}(${replaceChar(child)})`
-  // if(key === 'var-border-color')
 }
 key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key
 key.match(/\d$/)?key=key+'%':key
-if(key.match(/\d+(?=^_)_/g))console.log(key)
   const pattern = new RegExp(Object.keys(sparator).join('|'),'g');
 key=key.replace(pattern,match=>sparator[match])||key;
 if(key.match(/(?<=\,|\s|^)0\d/g))key=key.replace(key.match(/(?<=\,|\s|^)0\d/g),match=>match.split('').join('.'))

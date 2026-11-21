@@ -28,7 +28,7 @@ function SideBar({...props}){
                 <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'ops_0E':''}`}></span>    
                 <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'trf_rotate-31deg trfo_98':''}`}></span>
             </button>
-            <div className={`p_0_1D25rem bd_1px_solid_var-border-color h_4rem d_flex ai_ct jc_ct pos_fix 
+            <div className={`p_0_1D25rem js_ct w_stretch bd_1px_solid_var-border-color h_4rem d_flex ai_ct jc_ct pos_fix 
             ${minim?'Mops_0E':''}
                 `}>
                 MENU UTAMA

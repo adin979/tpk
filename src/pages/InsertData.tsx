@@ -108,7 +108,6 @@ function InsertData(){
                     toast('success','Data warga berhasil disimpan')
                     setDataWarga(data.anggota_keluarga.map((d:DataWarga)=>({...d,no_kk:data.no_kk})))
                 })
-                .catch(error=>toast('error',`Gagal menyimpan ${error}`))
             }
         })
         .catch(error=>toast('error',`Gagal menyimpan ${error}`))
