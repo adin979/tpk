@@ -60,11 +60,9 @@ function InsertData(){
             const uploadData = new FormData();//bawaan html
             uploadData.append('image',compressed,'image.jpeg')
             customFetch('/parse-document',{body:uploadData,method:'POST'})
-            // .then(response=>response.data)
             .then(resData=>{
-                console.log(resData)
-                const {data,filePath} = resData
-                setImageFileName(filePath)
+                const {data} = resData
+                setImageFileName(data.image_url)
                 setDataKk({
                     id:data.id,
                     no_kk: data.no_kk,
@@ -75,7 +73,7 @@ function InsertData(){
                     kecamatan: data.kecamatan,
                     kabupaten_kota: data.kabupaten_kota,
                     provinsi: data.provinsi,
-                    image_url:filePath
+                    image_url:data.image_url
                 })
                 setDataWarga(data.anggota_keluarga.map((d:DataWarga)=>({...d,no_kk:data.no_kk})))
             })
@@ -84,11 +82,11 @@ function InsertData(){
         })
 
     }
-    
+    console.log(dataKk)
     function handleKkChange(e:ChangeEvent<HTMLInputElement>){
         e.preventDefault()
         const{name,value}=e.currentTarget
-        setDataKk(prev=>({...prev,[name]:value.toUpperCase()}))
+        setDataKk(prev=>({...prev,[name]:name==='image_url'?value:value.toUpperCase()}))
     }
     function handleWargaChange(index:number,field:keyof DataWarga,value:string){
         setDataWarga(prev => prev.map((item,i) => i === index ? { ...item, [field]: value.toUpperCase() } : item))
@@ -124,7 +122,6 @@ function InsertData(){
     return (
         <div className="maxw_1120px m_0ESauto p_40pxS28pxS36px Sp_0S14pxS25px Md_grid Mgtc_1fr">
             {loading&&<Loading/>}
-            {/* <div className="d_grid gap_1rem jc_se"> */}
                 {selectedFile?
                 <div className="d_flex pos_rel fd_col bd_1px_solid">
                     <img src={preview?preview:'../assets/hero.png'} className="w_auto maxh_270px " alt="preview"/>
@@ -140,7 +137,6 @@ function InsertData(){
                 </label>
                 </Card>
                 }
-            {/* </div> */}
             <section>
                 <FormEl title='Input Data' className="" 
                 button={{text:"Kirim",
@@ -149,21 +145,24 @@ function InsertData(){
                     <article>
                     <Card title="Input Data Kartu Keluarga">
                         <div className="d_grid Mgtc_repeat-2E__minmax-0__1fr gap_17px_20px maxw_100">
-                            {(Object.keys(dataKk) as (keyof DataKk)[]).map((v)=>(
+                            {(Object.keys(dataKk) as (keyof DataKk)[]).map((v,i)=>{
+                                console.log(v,' : ',dataKk[v])
+                            return(
                                 v !== 'id' &&
                                 <InputField 
-                                key={v}
+                                key={i}
                                 label={{content:v.replace(/_/g,' ').toLocaleUpperCase(),className:v === 'alamat'?'Mgrid-column_1E_L_-1E':''}}
                                 id={v}
                                 name={v}
                                 value={dataKk[v]}
-                                className='textTransform_uppercase'
+                                disabled={v==='image_url'?true:false}
+                                className={v!=='image_url'?'textTransform_uppercase':''}
                                 required
-                                maxLength={16}
+                                maxLength={v === 'no_kk'?16:undefined}
                                 inputMode={v === 'no_kk' ? 'numeric' : undefined}
                                 onChange={handleKkChange}
                                 />
-                            ))}
+                            )})}
                         </div>
                     </Card>
                     </article>

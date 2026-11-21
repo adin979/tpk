@@ -29,7 +29,7 @@ function SideBar({...props}){
                 <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'trf_rotate-50deg trfo_98':''}`}></span>
             </button>
             <div className={`p_0_1D25rem bd_1px_solid bc_var-border-color h_4rem d_flex ai_ct jc_ct 
-            ${!open?'Mops_0E':''}
+            ${minim?'Mops_0E':''}
                 `}>
                 MENU UTAMA
             </div>
