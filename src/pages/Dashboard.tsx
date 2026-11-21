@@ -1,149 +1,25 @@
 import { useEffect, useState} from 'react';
 import customFetch from '../util/customFetch';
 import { type DataKk,type DataWarga } from '../util/Constanta';
-import Loading from '../component/Loading';
 import SearchBar from '../component/SearchBar';
+import UpdateKk from '../component/UpdateKk';
+import { useAuth } from '../context/AuthContext';
 
 function Home() {
-  const [dataKk, setDataKk] = useState<KartuKeluarga[]>([]);
+  const [dataKk, setDataKk] = useState<DataKk[]>([]);
   const [warga, setWarga] = useState<DataWarga[]>([]);
-  const [selectedKk,setSelectedKk] =useState<KartuKeluarga|null>(null)
-  const [loading,setLoading]=useState<boolean>(false)
+  const [selectedKk,setSelectedKk] =useState<DataKk|null>(null)
   const [limit,setLimit]=useState<number>(10)
   const [offset,setOffset]=useState<number>(0)
+  const [updateKk,setUpdateKk]=useState<DataKk|null>(null)
+    const {setLoading} = useAuth() 
 
-  interface KartuKeluarga extends DataKk{
-    anggota_keluarga?:DataWarga[]
-  }
-
-//     const dataKkDummy:KartuKeluarga[]=[
-//     {
-//         alamat : "KP BOJONGJATI",
-//         desa_kelurahan: "SUKAMAHI",
-//         id: 1,
-//         image_url: "undefined",
-//         kabupaten_kota: "CIANJUR",
-//         kecamatan: "CIJATI",
-//         nama_kepala_keluarga: "DERI",
-//         no_kk: "3203290906260001",
-//         provinsi : "JAWA BARAT",
-//         rt_rw : "002/001"
-//     },
-//     {
-//         alamat : "KP BOJONGJATI",
-//         desa_kelurahan: "SUKAMAHI",
-//         id: 2,
-//         image_url: "undefined",
-//         kabupaten_kota: "CIANJUR",
-//         kecamatan: "CIJATI",
-//         nama_kepala_keluarga: "ABDI SAE",
-//         no_kk: "3203290906260002",
-//         provinsi : "JAWA BARAT",
-//         rt_rw : "002/001",
-//     },
-//     {
-//         alamat : "KP BOJONGJATI",
-//         desa_kelurahan: "SUKAMAHI",
-//         id: 3,
-//         image_url: "undefined",
-//         kabupaten_kota: "CIANJUR",
-//         kecamatan: "CIJATI",
-//         nama_kepala_keluarga: "BUDI DARYANTO",
-//         no_kk: "3203290906260003",
-//         provinsi : "JAWA BARAT",
-//         rt_rw : "002/001",
-//     }
-// ]
-// const dataWargaDummy:DataWarga[]=
-//     [
-//         {
-//             id: 1,
-//             nama_lengkap: "DERI",
-//             nik: "3203290301040005",
-//             jenis_kelamin: "LAKI-LAKI",
-//             tempat_lahir: "CIANJUR",
-//             tanggal_lahir: "2004-01-03",
-//             status_hubungan: "KEPALA KELUARGA",
-//             no_kk: "3203290906260001"
-//         },
-//         {
-//             id: 2,
-//             nama_lengkap: "SEFFIANNY NABILA AZHARI",
-//             nik: "3302145009030001",
-//             jenis_kelamin: "PEREMPUAN",
-//             tempat_lahir: "BANYUMAS",
-//             tanggal_lahir: "2003-09-10",
-//             status_hubungan: "ISTRI",
-//             no_kk: "3203290906260001"
-//         },
-//         {
-//             id: 3,
-//             nama_lengkap: "ANINDYA ZEA ALMAHIRA",
-//             nik: "3203294110250001",
-//             jenis_kelamin: "PEREMPUAN",
-//             tempat_lahir: "KABUPATEN CIANJUR",
-//             tanggal_lahir: "2025-10-01",
-//             status_hubungan: "ANAK",
-//             no_kk: "3203290906260001"
-//         },
-//         {
-//             id: 1,
-//             nama_lengkap: "ABDI SAE",
-//             nik: "3203290301040001",
-//             jenis_kelamin: "LAKI-LAKI",
-//             tempat_lahir: "CIANJUR",
-//             tanggal_lahir: "2004-01-03",
-//             status_hubungan: "KEPALA KELUARGA",
-//             no_kk: "3203290906260002"
-//         },
-//         {
-//             id: 2,
-//             nama_lengkap: "NABILA AZHARI",
-//             nik: "3302145009030001",
-//             jenis_kelamin: "PEREMPUAN",
-//             tempat_lahir: "BANYUMAS",
-//             tanggal_lahir: "2003-09-10",
-//             status_hubungan: "ISTRI",
-//             no_kk: "3203290906260002"
-//         },
-//         {
-//             id: 3,
-//             nama_lengkap: "ALMAHIRA",
-//             nik: "3203294110250001",
-//             jenis_kelamin: "PEREMPUAN",
-//             tempat_lahir: "KABUPATEN CIANJUR",
-//             tanggal_lahir: "2025-10-01",
-//             status_hubungan: "ANAK",
-//             no_kk: "3203290906260002"
-//         },
-//         {
-//             id: 1,
-//             nama_lengkap: "BUDI DARYANTO",
-//             nik: "3203290301040005",
-//             jenis_kelamin: "LAKI-LAKI",
-//             tempat_lahir: "CIANJUR",
-//             tanggal_lahir: "2004-01-03",
-//             status_hubungan: "KEPALA KELUARGA",
-//             no_kk: "3203290906260003"
-//         },
-//         {
-//             id: 2,
-//             nama_lengkap: "DINDA NABILA AZHARI",
-//             nik: "3302145009030001",
-//             jenis_kelamin: "PEREMPUAN",
-//             tempat_lahir: "BANYUMAS",
-//             tanggal_lahir: "2003-09-10",
-//             status_hubungan: "ISTRI",
-//             no_kk: "3203290906260003"
-//         }
-//     ]
   useEffect(() => {
     const dataWarga =()=>{
-        setLoading(true)
+        setLoading(true);
         return customFetch(`/datakk?limit=${limit}&offset=${offset}`)
         .then(res=>res.data)
         .then((data) => {
-            console.log(data)
         setDataKk(Array.isArray(data) ? data : [])
         })
         .catch((error) => console.error(error))
@@ -151,19 +27,22 @@ function Home() {
     }
     dataWarga()
     }, [limit, offset]);
-    function detailHandle(kk:KartuKeluarga){
+    function detailHandle(kk:DataKk){
         setSelectedKk(null)
         setSelectedKk(kk)
-            setLoading(true)
-            return customFetch(`/kk/${kk.no_kk}/warga`)
-            .then(res=>res.data)
-            .then(data=>setWarga(data))
-            .catch(error=>error)
-            .finally(()=>{setLoading(false)})
+        setLoading(true)
+        return customFetch(`/kk/${kk.no_kk}/warga`)
+        .then(res=>res.data)
+        .then(data=>setWarga(data))
+        .catch(error=>error)
+        .finally(()=>{setLoading(false)})
+    }
+    function updateData(id: number | null | undefined){
+        const data = dataKk.find(kk=>kk.id===id)
+        setUpdateKk(data??null)
     }
     return (
         <div className='minh_100vh Sp_0S1rem p_2px d_flex gap_12px fd_col'>
-        {loading&&<Loading/>}
         <SearchBar options={[1,2,5]} select={{onChange:(e)=>setLimit(parseInt((e.target as HTMLSelectElement).value)),value:limit}}/> 
             <div className='d_grid fs_1rem '>
                 <section className='d_flex gap_12px fd_col'>
@@ -184,12 +63,13 @@ function Home() {
                                     <button className="bg_H2563eb cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_600E cur_poin" onClick={()=>setSelectedKk(null)}>Tutup</button>
                                     :<button className="bg_H2563eb cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_600E cur_poin" onClick={()=>detailHandle(kk)}>Detail</button>
                                 }
+                                <button onClick={()=>updateData(kk?.id)}>Update</button>
                             </div>
                         {selectedKk?.id === kk.id &&
                         <div className=' mt_1rem d_flex fd_col gap_12px Sfs_10px'>
                             <span >Anggota keluarga : </span>
                             {warga.map((w,i)=>(
-                                <div key={i+1} className='d_grid gtc_1frS1fr bd_1pxSsolidSHe2e8f0E box-shadow_0S1S3SrgbaF0K0K0K0D05E p_8 brd_8 ' >
+                                <div key={i+1} className='d_grid gtc_1frS1fr Mfs_0D8rem bd_1pxSsolidSHe2e8f0E box-shadow_0S1S3SrgbaF0K0K0K0D05E p_0D2rem brd_0D2rem ' >
                                     <span>NIK : {w.nik}</span>
                                     <span>Nama : {w.nama_lengkap}</span>
                                 </div>
@@ -200,6 +80,11 @@ function Home() {
                 </section>
             </div>
             <div className='d_flex p_12px jc_sb cur_poin'><span onClick={()=>setOffset(10)}>{'<<'}</span><span onClick={()=>setOffset(10)}>{'>>'}</span></div>
+            {updateKk&&
+            <UpdateKk data={updateKk}>
+                <button onClick={()=>setUpdateKk(null)}>Batal</button>
+            </UpdateKk>
+                }
         </div>
   );
 }

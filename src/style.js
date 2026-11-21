@@ -346,7 +346,6 @@ const replaceChar=(key)=>{
     let child =key.substring(indexStrip+1)
     if(firstIndex[1] === 'var')child=`--${child}`
     key=`${addChar}${parent}(${replaceChar(child)})`
-    console.log(key)
   }
   if(key.match(/(?<=\D)0\d/g))key=key.replace(key.match(/(?<=\D)0\d/g),match=>match.split('').join('.'))
     key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key

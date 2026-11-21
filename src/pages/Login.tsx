@@ -1,15 +1,13 @@
-import { useState, type SubmitEvent } from "react";
+import { type SubmitEvent } from "react";
 import { login } from "../util/functions";
 import { useNavigate } from "react-router-dom";
 import InputField from "../component/InputField";
 import { FormEl } from "../component/FormEl";
 import { useAuth, type Role } from "../context/AuthContext";
 import { toast } from "../component/toast/toastContex";
-import Loading from "../component/Loading";
 
 function Login(){
-    const [loading,setLoading]=useState<boolean>(false)
-    const {login:authLogin}=useAuth()
+    const {login:authLogin,setLoading}=useAuth()
     const navigate = useNavigate()
     const handleSubmit = (e:SubmitEvent<HTMLFormElement>)=>{
         e.preventDefault()
@@ -30,7 +28,6 @@ function Login(){
     }
     return(
         <div className="minh_100vh d_flex jc_ct bg_linear-gradientF45degKH578ef5Ktransparent m_auto">
-            {loading&&<Loading/>}
             <div className="d_flex pos_rel top_100px p_1remS1remS2remS1rem h_fit jc_ct bg_H65d0f4E ai_ct">
                 <FormEl title="LOGIN" 
                 button={{text:"Login",className:"p_12px brd_8px fs_13px fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3pxS3pxS4pxSHb5b3b2E"}}

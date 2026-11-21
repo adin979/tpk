@@ -1,15 +1,13 @@
-import {useState, type SubmitEvent } from "react"
+import {type SubmitEvent } from "react"
 import { FormEl } from "../component/FormEl"
 import InputField from "../component/InputField"
 import { login } from "../util/functions"
 import { useNavigate } from "react-router-dom"
 import { toast } from "../component/toast/toastContex"
 import { useAuth,type Role } from "../context/AuthContext"
-import Loading from "../component/Loading"
 
 export default function Register(){
-    const [loading,setLoading]=useState<boolean>(false)
-    const {login:authLogin}=useAuth()
+    const {login:authLogin,setLoading}=useAuth()
     const navigate=useNavigate()
     function handleSubmit(e: SubmitEvent<HTMLFormElement>){
         e.preventDefault()
@@ -48,7 +46,6 @@ export default function Register(){
     }
     return(
         <div className="minh_100vh d_flex jc_ct bg_linear-gradientF45degKH578ef5Ktransparent">
-            {loading && <Loading />}
             <div className="d_flex pos_rel top_100 p_1remS1remS2remS1rem h_fit jc_ct bg_H65d0f4E ai_ct">
                 <FormEl title="Registrasi" onSubmit={handleSubmit}
                 button={{text:"Login",className:"p_12 brd_8 fs_13 fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3S3S4SHb5b3b2E"}}>

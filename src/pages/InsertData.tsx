@@ -6,8 +6,8 @@ import { FormEl } from "../component/FormEl"
 import Select from "../component/Select"
 import Card from "../component/Card"
 import { type DataKk, type DataWarga } from '../util/Constanta'
-import Loading from "../component/Loading"
 import { toast } from "../component/toast/toastContex"
+import { useAuth } from "../context/AuthContext"
 
 function InsertData(){
     const [selectedFile,setSeleectedFile]=useState<File|null>(null)
@@ -34,9 +34,8 @@ function InsertData(){
         tanggal_lahir: '',
         status_hubungan: ''
     }])
-    const [loading,setLoading] = useState<boolean>(false)
     const [imageFileName,setImageFileName]=useState<string>('')
-    
+    const {setLoading}=useAuth()    
     const fileHandler=(e:ChangeEvent<HTMLInputElement>)=>{
         const files = e.target.files;
         if(!files || files.length === 0)return;
@@ -82,7 +81,6 @@ function InsertData(){
         })
 
     }
-    console.log(dataKk)
     function handleKkChange(e:ChangeEvent<HTMLInputElement>){
         e.preventDefault()
         const{name,value}=e.currentTarget
@@ -121,7 +119,6 @@ function InsertData(){
     }
     return (
         <div className="maxw_1120px m_0ESauto p_40pxS28pxS36px Sp_0S14pxS25px Md_grid Mgtc_1fr">
-            {loading&&<Loading/>}
                 {selectedFile?
                 <div className="d_flex pos_rel fd_col bd_1px_solid">
                     <img src={preview?preview:'../assets/hero.png'} className="w_auto maxh_270px " alt="preview"/>
@@ -233,7 +230,6 @@ function InsertData(){
                         </Card>
                         ))}
                     <button className=" bg _Hf1f5f9 cl_H334155E bd_1px_solid_Hcbd5e1E p_12px brd_8px fs_13px fw_600E cur_poin bsd_3px_3px_8px_Hacacac" type="button" onChange={addCount}>Tambah Anggota Keluarga</button>
-                        {loading && <div className="r_0 b_0 bg_rgbaF0EK0EK0EKD1E"><p>loading ...</p></div>}
                 </FormEl>
                 </section>
             </div>

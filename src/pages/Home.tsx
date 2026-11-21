@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import customFetch from '../util/customFetch';
 import Card from '../component/Card';
-import Loading from '../component/Loading';
 import { type DataKk,type DataWarga } from '../util/Constanta';
+import { useAuth } from '../context/AuthContext';
 
 
 function Home() {
   const [warga, setWarga] = useState<DataWarga[]>([]);
   const [kk,setKk]=useState<DataKk[]>([])
-  const [loading,setLoading]=useState<boolean>(false)
-
+  const {setLoading} = useAuth()
   useEffect(() => {
     const dataWarga =()=>{
         setLoading(true)
@@ -41,7 +40,6 @@ function Home() {
   }, []);
   return (
     <div className='bg_Hffffff p_12px brd_12px bd_1SsolidSHe2e8f0E d_flex fd_col gap_10px'>
-      {loading&&<Loading/>}
       <div className='d_flex jc_sb ai_ct'>
         <span className='fw_600E ta_ct fs_14px cl_H334155E m_auto'>SYSTEM INFORMASI TIM PENDAMPING KELUARGA (TPK)</span>
       </div>

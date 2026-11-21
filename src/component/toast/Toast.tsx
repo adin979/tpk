@@ -24,13 +24,13 @@ export const ToastContainer:React.FC=()=>{
     if(!data)return null;
     const isSuccess=data.type==='success'
     return(
-        <div className={`pos_fix t_20 r_20 cl_Hffffff 
-        p_12S20 brd_8 bsd_0S4S12SrgbaF0K0K0K0D15E 
-        d_flex ai_ct gap_12 z_9999E ff_sans-serif fs_14
+        <div className={`pos_fix t_20px r_20px cl_Hffffff 
+        p_12pxS20px brd_8px bsd_0S4pxS12pxSrgba-0K0K0K0D15E 
+        d_flex ai_ct gap_12px z_9999E ff_var-font-sans fs_14px
         ${isSuccess?'bg_H10b981E':'bg_Hef4444E'}`} role="alert">
             <span>{isSuccess?'Success':'Failed'}</span>
             <span>{data.message}</span>
-            <button onClick={onClose} className="bg_transparent bd_nn cl_Hffffff cur_poin fs_16 fw_bold ml_8">&times;</button>
+            <button onClick={onClose} className="bg_transparent bd_nn cl_Hffffff cur_poin fs_16px fw_bold ml_8px">&times;</button>
         </div>
     )
 }

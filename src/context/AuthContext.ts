@@ -6,6 +6,7 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   userRole: Role | null;
   loading: boolean;
+  setLoading:(state:boolean|string)=>void
   login: (token: string, role: Role) => void;
   logout: () => void;
 }
