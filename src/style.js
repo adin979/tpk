@@ -354,7 +354,6 @@ key.match(/\d$/)?key=key+'%':key
   const pattern = new RegExp(Object.keys(sparator).join('|'),'g');
 key=key.replace(pattern,match=>sparator[match])||key;
 if(key.match(/(?<=\,|\s|^)0\d/g))key=key.replace(key.match(/(?<=\,|\s|^)0\d/g),match=>match.split('').join('.'))
-if(Object.keys(func).includes(firstIndex))console.log(key+' , ',firsStrip)
   return key 
 }
 // ==================================================================================
