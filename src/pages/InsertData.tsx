@@ -137,7 +137,7 @@ function InsertData(){
             <section>
                 <FormEl title='Input Data' className="" 
                 button={{text:"Kirim",
-                className:"p_12px brd_8px fs_13px fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3pxS3pxS4pxSHb5b3b2E"}} 
+                className:"p_12px brd_8px fs_13px fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3pxS3pxS4px_var-accent"}} 
                 onSubmit={handleSubmit}>
                     <article>
                     <Card title="Input Data Kartu Keluarga">
@@ -165,7 +165,7 @@ function InsertData(){
                     </article>
                         {dataWarga.map((member,index)=>(
                     <Card title="Input Data Anggota Keluarga" key={index+1}>
-                        <div className="d_grid Mgtc_repeatF2EKminmaxF0KS1fr gap_17pxS20px">
+                        <div className="d_grid Mgtc_repeat-2E__minmax-0__1fr gap_17pxS20px">
                                 <InputField 
                                 label={{content:"Nomor Kartu Keluarga"}}
                                 type="text"

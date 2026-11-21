@@ -34,7 +34,7 @@ function Home() {
             .catch((error) => console.error(error));        
           } catch (error) {
             return error
-          }finally{setLoading(false)}
+          }finally{setTimeout(()=>setLoading(false),5000)}
         }
     dataKeluarga()
   }, []);

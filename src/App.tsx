@@ -7,7 +7,8 @@ import Login from './pages/Login'
 import UnAuthorized from './pages/UnAuthorized'
 import InsertData from './pages/InsertData'
 import Footer from './component/Footer'
-import ProtectedRoute from './ProtectedRoute'
+import ProtectedRoute from './component/ProtectedRoute'
+import PublicRoute from './component/PublicRoute'
 import Layout from './component/Layout'
 import Dashboard from './pages/Dashboard'
 
@@ -17,8 +18,10 @@ function App() {
     <Router>
       <Routes>
         <Route path='/unauthorized' element={<UnAuthorized/>}/>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route element={<PublicRoute/>}>
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/login' element={<Login/>}/>
+        </Route>
         <Route element={<ProtectedRoute allowedRoles={['user','admin']} />}>
           <Route element={<Layout/>}>
             <Route path='/' element={<Home/>}/>

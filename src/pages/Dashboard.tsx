@@ -42,34 +42,36 @@ function Home() {
         setUpdateKk(data??null)
     }
     return (
-        <div className='minh_100vh Sp_0S1rem p_2px d_flex gap_12px fd_col'>
+        <div className='minh_100vh Sp_0S1rem p_2px d_flex gap_12px fd_col ff_var-sans'>
         <SearchBar options={[1,2,5]} select={{onChange:(e)=>setLimit(parseInt((e.target as HTMLSelectElement).value)),value:limit}}/> 
             <div className='d_grid fs_1rem '>
                 <section className='d_flex gap_12px fd_col'>
                         {/* card items */}
                     {dataKk.map((kk,index)=>(
                         <article key={index+1} 
-                        className='bg_Hffffff bd_1px_solid_He2e8f0E box-shadow_0_1px_3px_rgba-0__0__0__0D05E d_flex fd_col p_16px brd_12px'>
+                        className='bg_Hffffff bd_1px_solid_var-border-color bsd_0_1px_3px_rgba-0__0__0__005E d_flex fd_col p_16px brd_12px'>
                             <div className=" p_16px brd_12px d_flex jc_sb ai_ct">
                                 <div className="d_flex fd_col gap_4px">
-                                    <div className="d_flex ai_ct gap_6px">
-                                        <span className="bg_Hdbeafe clH1d4ed8E fs_11px fw_600E p_2pxS8px brd_99px">#1</span>
-                                        <span className="fs_12px cl_H64748b ff_monoscape">{kk.no_kk}</span>
+                                    <div className="d_flex ai_ct gap_6px ff_var-mono">
+                                        <span className="bg_Hdbeafe clH1d4ed8E fs_11px fw_600E p_2pxS8px brd_99px">#{index+1}</span>
+                                        <span className="fs_12px cl_H64748b ">{kk.no_kk}</span>
                                     </div>
-                                    <h3 className="m_0px fs_15px fw_700E cl_H0f172a">{kk.nama_kepala_keluarga}</h3>
-                                    <span className="fs_12px cl_H64748b">Kepala Keluarga</span>
+                                    <h3 className="m_0px fs_var-text-base lh_var-line-base ff_var-sans fw_var-bold cl_H0f172a ">{kk.nama_kepala_keluarga}</h3>
+                                    <span className="fs_var-text-xs cl_var-text-muted lh_var-line-xs ff_var-mono">Kepala Keluarga</span>
                                 </div>
-                                {selectedKk?.no_kk===kk.no_kk?
-                                    <button className="bg_H2563eb cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_600E cur_poin" onClick={()=>setSelectedKk(null)}>Tutup</button>
-                                    :<button className="bg_H2563eb cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_600E cur_poin" onClick={()=>detailHandle(kk)}>Detail</button>
-                                }
+                                <div className='d_inline-flex fd_col gap_1rem'>
                                 <button onClick={()=>updateData(kk?.id)}>Update</button>
+                                {selectedKk?.no_kk===kk.no_kk?
+                                    <button className="bg_var-accent cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_var-semi-bold lh_var-line-xs cur_poin" onClick={()=>setSelectedKk(null)}>Tutup X</button>
+                                    :<button className="bg_var-accent cl_Hffffff bd_nn p_8pxS14px brd_8px fs_12px fw_var-semi-bold lh_var-line-xs cur_poin" onClick={()=>detailHandle(kk)}>Detail {'>'}</button>
+                                }
+                                </div>
                             </div>
                         {selectedKk?.id === kk.id &&
                         <div className=' mt_1rem d_flex fd_col gap_12px Sfs_10px'>
                             <span >Anggota keluarga : </span>
                             {warga.map((w,i)=>(
-                                <div key={i+1} className='d_grid gtc_1frS1fr Mfs_0D8rem bd_1pxSsolidSHe2e8f0E box-shadow_0S1S3SrgbaF0K0K0K0D05E p_0D2rem brd_0D2rem ' >
+                                <div key={i+1} className='d_grid gtc_1frS1fr Mfs_0D8rem bd_1pxSsolidSHe2e8f0E bsd_0_1_3_var-accent-shadow p_0D2rem brd_0D2rem ' >
                                     <span>NIK : {w.nik}</span>
                                     <span>Nama : {w.nama_lengkap}</span>
                                 </div>

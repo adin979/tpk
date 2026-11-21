@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return (
     <AuthContext.Provider value={{ isAuthenticated, userRole, loading,setLoading, login, logout }}>
       {loading&&(
-        <div ><span>{textLoading}</span></div>
+        <div className='loading-overlay'><span className='loading-text'>{textLoading}</span></div>
       )}
       {children}
     </AuthContext.Provider>

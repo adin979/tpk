@@ -296,6 +296,7 @@ const replaceChar=(key)=>{
     hwb:'hwb',
     hypot:'hypot',
     inset:'inset',
+    lh:'line-height',
     linear:'linear-gradient',
     log:'log',
     mat:'matrix',
@@ -339,20 +340,23 @@ const replaceChar=(key)=>{
   }
   const indexStrip=key.indexOf('-')
   const firsStrip=key.substring(0,indexStrip)
-  const firstIndex=firsStrip.match(/(?:_|\s*)([a-z]+)/)||[]
-  if(Object.keys(func).includes(firstIndex[1])){
-    const addChar=firsStrip.replace(firstIndex[1],'')
-    const parent=func[firstIndex[1]]
+  const firstIndex=firsStrip.split('_').pop()
+  // const isExsist= 
+  if(Object.keys(func).includes(firstIndex)){
+    const addChar=firsStrip.replace(firstIndex,'')
+    const parent=func[firstIndex]
     let child =key.substring(indexStrip+1)
-    if(firstIndex[1] === 'var')child=`--${child}`
+    if(firstIndex === 'var')child=`--${child}`
     key=`${addChar}${parent}(${replaceChar(child)})`
-  }
-  if(key.match(/(?<=\D)0\d/g))key=key.replace(key.match(/(?<=\D)0\d/g),match=>match.split('').join('.'))
-    key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key
-  key.match(/\d$/)?key=key+'%':key
+  // if(key === 'var-border-color')
+}
+key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key
+key.match(/\d$/)?key=key+'%':key
 if(key.match(/\d+(?=^_)_/g))console.log(key)
   const pattern = new RegExp(Object.keys(sparator).join('|'),'g');
-  key=key.replace(pattern,match=>sparator[match])||key;
+key=key.replace(pattern,match=>sparator[match])||key;
+if(key.match(/(?<=\,|\s|^)0\d/g))key=key.replace(key.match(/(?<=\,|\s|^)0\d/g),match=>match.split('').join('.'))
+if(Object.keys(func).includes(firstIndex))console.log(key+' , ',firsStrip)
   return key 
 }
 // ==================================================================================

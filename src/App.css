@@ -44,8 +44,19 @@ body::selection{
 
 :root{
     /* typograph */
-    --font-sans:'Plus Jakarta Sans','Inter',system-ui,-aple-system,sans-serif;
-    --font-mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+    --sans:'Plus Jakarta Sans','Inter',system-ui,-aple-system,sans-serif;
+    --mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+    --bold:700;
+    --semi-bold:600;
+    --text-xl:1.25rem;
+    --line-xl:1.75rem;
+    --text-base:1rem;
+    --line-base:1.5rem;
+    --text-sm:0.875rem;
+    --line-sm:1.25rem;
+    --text-xs:0.75rem;
+    --line-xs:1rem;
+    --tight:-0.025em;
     /* Coloring */
     --bg-app:#f8fafc;
     --bg-surface:#ffffff;
@@ -54,15 +65,55 @@ body::selection{
     --text-muted:#64748b;
     /* bordering */
     --accent:#2563eb;
+    --accent-shadow:#2563eb33;
     --accent-hover:#1d4ed8;
     --accent-soft:#eff6ff;
     --border-color:#e2e8f0;
     --rad-sm:8px;
     --rad-md:12px;
     --rad-lg:16px;
-    --shadow-card:0 1px 3px rgba(15,32,42,0.06)
+    --shadow-card:0 1px 3px rgba(15,32,42,0.06);
     --transit:transform 0.3s ease-in-out
 }
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Membuat 3 titik berjalan di tempat */
+.loading-text::after {
+  content: "";
+  display: inline-block;
+  width: 1.5em; /* Mengunci ruang agar kata "Loading" tidak bergeser kiri-kanan */
+  text-align: left;
+  margin-left: 4px;
+  animation: dotsWalk 1.4s steps(4, end) infinite;
+}
+
+@keyframes dotsWalk {
+  0%   { content: ""; }
+  25%  { content: "."; }
+  50%  { content: ".."; }
+  75%  { content: "..."; }
+  100% { content: ""; }
+}
+
 
 @media (min-width: 768px) {
     #wrapper{

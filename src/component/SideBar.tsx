@@ -21,14 +21,14 @@ function SideBar({...props}){
         ${minim?'w_20px':'w_230px'}
         ${!open?'Strf_trsx--100':''}
         `} onClick={()=>setOpen(!open)}>
-            <button className={`Md_nn pos_fix bg_rgba-0__0__0__0E 
+            <button className={`Md_nn d_flex fd_col jc_se h_40px pos_fix bg_rgba-0__0__0__0E 
                 bd_1px_solid bc_var-border-color m_D4rem_D75rem 
-                z_100E Sh_50px Sd_grid ai_ct ${!open?'l_100':'Strf_trsx-300'}`} onClick={()=>setOpen(!open)}>
-                <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'trf_rotate--50deg trfo_98':''}`}></span>
-                <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'ops_0E':''}`}></span>    
-                <span className={`d_block tst_var-transit w_40px h_4px bg_var-text-muted ${open?'trf_rotate-50deg trfo_98':''}`}></span>
+                z_100E ai_ct ${!open?'l_100':'Strf_trsx-300 bd_nn'}`} onClick={()=>setOpen(!open)}>
+                <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'trf_rotate--32deg trfo_98':''}`}></span>
+                <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'ops_0E':''}`}></span>    
+                <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'trf_rotate-31deg trfo_98':''}`}></span>
             </button>
-            <div className={`p_0_1D25rem bd_1px_solid bc_var-border-color h_4rem d_flex ai_ct jc_ct 
+            <div className={`p_0_1D25rem bd_1px_solid_var-border-color h_4rem d_flex ai_ct jc_ct pos_fix 
             ${minim?'Mops_0E':''}
                 `}>
                 MENU UTAMA
