@@ -4,6 +4,7 @@ import InputField from "./InputField"
 import type { DataKk } from "../util/Constanta"
 import customFetch from "../util/customFetch"
 import { toast } from "./toast/toastContex"
+import Card from "./Card"
 
 interface Props{
     data:DataKk
@@ -50,7 +51,7 @@ export default function UpdateKk({data,children}:Props){
         }
     }
     return(
-        <div className="pos_fix bg_var-bg-app overflow_auto h_80vh as_ct w_70vw p_1rem">
+        <Card className="pos_fix top_0 z_99E overflow_auto as_ct w_70vw p_1rem">
             <FormEl 
             onSubmit={update}
             title="UPDATE KARTU KELUARGA"
@@ -76,6 +77,6 @@ export default function UpdateKk({data,children}:Props){
                 })}
             </FormEl>
                 {children}
-        </div>
+        </Card>
     )
 }

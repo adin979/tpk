@@ -7,7 +7,7 @@ interface SearchProps{
 }
 export default function SearchBar({input,select,options}:SearchProps){
     return(
-        <div className="bg_Hfff p_12px brd_12px bd_1pxSsolidSHe2e8f0E d_flex fd_col gap_10px">
+        <div className="bg_Hffffff pos_sti p_12px brd_12px bd_1px_solid_He2e8f0E d_flex fd_col gap_10px">
             <div className="d-flex jc_sb ai_ct">
                 <span className="fs_14px fw_600E cl_H331455E">Pencarian</span>
                 <div className="d_flex ai_ct gap_6px fs_12px cl_H64748b">

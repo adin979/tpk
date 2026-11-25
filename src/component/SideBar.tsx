@@ -13,35 +13,37 @@ function SideBar({...props}){
     return(
         <aside {...props} className={`
          Mpos_rel Spos_fix 
-        h_100 z_99E 
-        tst_trf_0D3s_ease-in-out grid-area_sidebar
-        Sh_85vh  bg_var-bg-surface
+        h_100 z_2E
+        tst_width_var:transit
+        Sh_85vh  bg_var:bg-surface
         bd_1px_solid
-        bc_var-border-color
-        ${minim?'w_20px':'w_230px'}
-        ${!open?'Strf_trsx--100':''}
+        bc_var:border-color
+        ${!open?'Strf_trsx:-100%':''}
+        ${minim?'Mw_20px':'w_230px'}
         `} onClick={()=>setOpen(!open)}>
-            <button className={`Md_nn d_flex fd_col jc_se h_40px pos_fix bg_rgba-0__0__0__0E 
-                bd_1px_solid bc_var-border-color m_D4rem_D75rem 
-                z_100E ai_ct ${!open?'l_100':'Strf_trsx-300 bd_nn'}`} onClick={()=>setOpen(!open)}>
-                <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'trf_rotate--32deg trfo_98':''}`}></span>
-                <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'ops_0E':''}`}></span>    
-                <span className={`d_block tst_var-transit w_40px h_2px bg_var-text-muted ${open?'trf_rotate-31deg trfo_98':''}`}></span>
+            <div className="r_0 l_0 t_0 b_0 bg_var:text-muted pos_fix ops_50 Md_nn"></div>
+            <button className={`Md_nn d_flex fd_col jc_se h_40px pos_fix bg_rgba:0~0~0~0E z_2E
+                bd_1px_solid bc_var:border-color m_D4rem_D75rem 
+                ai_ct ${!open?'l_100':'Strf_trsx:300 bd_nn'}`} onClick={()=>setOpen(!open)}>
+                <span className={`d_block tst_var:transit w_40px h_2px bg_var:text-muted ${open?'trf_rotate:-32deg trfo_98':''}`}></span>
+                <span className={`d_block tst_var:transit w_40px h_2px bg_var:text-muted ${open?'ops_0E':''}`}></span>    
+                <span className={`d_block tst_var:transit w_40px h_2px bg_var:text-muted ${open?'trf_rotate:31deg trfo_98':''}`}></span>
             </button>
-            <div className={`p_0_1D25rem js_ct w_stretch bd_1px_solid_var-border-color h_4rem d_flex ai_ct jc_ct pos_fix 
-            ${minim?'Mops_0E':''}
+            <div className={`p_0_1D25rem js_ct w_stretch bd_1px_solid_var:border-color bd_var:accent-soft h_4rem d_flex ai_ct jc_ct pos_fix 
                 `}>
-                MENU UTAMA
             </div>
             <div className={`
-            tst_var-transit
-            ${!open?'Strf_trs--100':''}
-            ${minim?'trf_trsx--200px':''}
-            w_230px pos_fix d_flex fd_col gap_12px p_50px_0 ai_ct flex_100`}>
-                <div><h3>MENU</h3></div>
+            bg_var:accent-soft
+            t_0 b_0 l_0
+            overflow_hidden
+            tst_all_var:transit
+            ${!open?'Strf_trsx:-100':''}
+            ${minim?'Mtrf_trsx:-200px':''}
+            w_230px pos_fix d_flex fd_col gap_12px p_50px_0 ai_ct`}>
+                {!minim&&<div><h3>MENU</h3></div>}
                 <Navbar/>
                 <div className="w_100 ta_end Sd_nn">
-                    <span className="bg_rgba-0K0K0K0E Sd_nn p_0 pos_fix cur_poin d_contents " onClick={()=>setMinim(!minim)}>{'<<'}</span>
+                    <span className="bg_rgba:0~0~0~0E Sd_nn p_0 pos_fix cur_poin d_contents " onClick={()=>setMinim(!minim)}>{'<<'}</span>
                 </div>
             </div>
         </aside>

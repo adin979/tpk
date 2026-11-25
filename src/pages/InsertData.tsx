@@ -7,7 +7,7 @@ import Select from "../component/Select"
 import Card from "../component/Card"
 import { type DataKk, type DataWarga } from '../util/Constanta'
 import { toast } from "../component/toast/toastContex"
-import { useAuth } from "../context/AuthContext"
+import { useLoading } from "../component/Loading"
 
 function InsertData(){
     const [selectedFile,setSeleectedFile]=useState<File|null>(null)
@@ -35,7 +35,7 @@ function InsertData(){
         status_hubungan: ''
     }])
     const [imageFileName,setImageFileName]=useState<string>('')
-    const {setLoading}=useAuth()    
+    const {showLoading,hideLoading}=useLoading()
     const fileHandler=(e:ChangeEvent<HTMLInputElement>)=>{
         const files = e.target.files;
         if(!files || files.length === 0)return;
@@ -44,7 +44,7 @@ function InsertData(){
         setPreview(URL.createObjectURL(file))
     }
     function fileSubmit(){
-        setLoading(true);
+        showLoading('Mengirim File');
         if(!selectedFile){
             alert('Pilih file terlebih dahulu!')
             return;
@@ -77,7 +77,7 @@ function InsertData(){
                 setDataWarga(data.anggota_keluarga.map((d:DataWarga)=>({...d,no_kk:data.no_kk})))
             })
             .catch(error=>error)
-            .finally(()=>setLoading(false))
+            .finally(()=>hideLoading())
         })
 
     }
@@ -91,7 +91,7 @@ function InsertData(){
     }
     const handleSubmit=(e:SubmitEvent<HTMLFormElement>)=>{
         e.preventDefault()
-        setLoading(true)
+        showLoading('Sedang Menyimpan Data')
         const payload={...dataKk,file_path:imageFileName}
         return customFetch('/datakk',{
             method:'POST',
@@ -105,13 +105,18 @@ function InsertData(){
                     body:dataWarga
                 })
                 .then(data=>{
+                    console.log(data)
                     toast('success','Data warga berhasil disimpan')
-                    setDataWarga(data.anggota_keluarga.map((d:DataWarga)=>({...d,no_kk:data.no_kk})))
+                    setDataWarga(prev => prev.map(member => ({
+                        ...member,
+                        no_kk: data.no_kk ?? member.no_kk
+                    })))
                 })
+                .catch(error=>toast('error',`Gagal menyimpan ${error}`))
             }
         })
         .catch(error=>toast('error',`Gagal menyimpan ${error}`))
-        .finally(()=>setLoading(false))
+        .finally(()=>hideLoading())
     }
     function addCount(e:ChangeEvent){
         console.log(e)
@@ -124,9 +129,13 @@ function InsertData(){
                     <button type="button" onClick={fileSubmit}>Kirim</button>
                     <button type="button" onClick={()=>setSeleectedFile(null)}>Ganti</button>
                 </div>:
-                <Card title="Input File">
-                <label htmlFor="image" className=" d_flex fd_col ai_ct jc_se h_170px bd_2pxSdashedSH8ab4ff brd_10px bg_Hf7faff cur_poin p_20px maxw_100">
-                    <span>...</span>
+                <Card >
+                    <div className="text-heading bold">Input File</div>
+                <label htmlFor="image" className=" d_flex fd_col ai_ct jc_se h_170px bd_2pxSdashedSH8ab4ff brd_10px bg_Hf7faff cur_poin p_20px w_100">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="#1f1f1f">
+                        <path d="M12,12ZM5,21q-0.83,0-1.41-0.59T3,19V5Q3,4.17 3.59,3.59T5,3h8q0,0.42 0,0.92T13,5H5V19H19V11q0.58,0 1.08,0T21,11v8q0,0.82-0.59,1.41T19,21H5Zm1-4H18l-3.75-5l-3,4L9,13L6,17ZM17,9V7H15V5h2V3h2V5h2V7H19V9H17Z"/>
+                        </svg>...</span>
                     <strong>Klik untuk memilih file</strong>
                     <small>JPEG (maks. 5 MB)</small>
                     <input type="file" name="image" id="image" onChange={fileHandler} className=""/>
@@ -139,10 +148,10 @@ function InsertData(){
                 className:"p_12px brd_8px fs_13px fw_600E cur-poin bg_H2563eb cl_Hffffff bd_nn bsd_3pxS3pxS4px_var-accent"}} 
                 onSubmit={handleSubmit}>
                     <article>
-                    <Card title="Input Data Kartu Keluarga">
-                        <div className="d_grid Mgtc_repeat-2E__minmax-0__1fr gap_17px_20px maxw_100">
+                    <Card>
+                        <div className="text-heading bold">Input Data Kartu Keluarga</div>
+                        <div className="d_grid Mgtc_repeat:2E~minmax:0~1fr gap_17px_20px w_100">
                             {(Object.keys(dataKk) as (keyof DataKk)[]).map((v,i)=>{
-                                console.log(v,' : ',dataKk[v])
                             return(
                                 v !== 'id' &&
                                 <InputField 
@@ -163,8 +172,9 @@ function InsertData(){
                     </Card>
                     </article>
                         {dataWarga.map((member,index)=>(
-                    <Card title="Input Data Anggota Keluarga" key={index+1}>
-                        <div className="d_grid Mgtc_repeat-2E__minmax-0__1fr gap_17pxS20px">
+                    <Card key={index+1}>
+                        <div><h1>Input Data Anggota Keluarga</h1></div>
+                        <div className="d_grid Mgtc_repeat:2E~minmax:0~1fr gap_17px_20px w_var:full">
                                 <InputField 
                                 label={{content:"Nomor Kartu Keluarga"}}
                                 type="text"

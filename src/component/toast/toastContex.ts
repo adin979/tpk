@@ -1,6 +1,6 @@
 export type ToastType = 'success'|'error';
 export interface ToastProps{
-    message:string;
+    message?:string;
     type:ToastType;
 }
 export const TOAST_EVENT = 'custom-toast-event'

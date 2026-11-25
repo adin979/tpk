@@ -13,7 +13,7 @@ const InputField = ({label,...props}:InputProps)=>{
             <label htmlFor={props.id} className='d_flex fd_col gap_7px minw_0' {...label} >
                 <span className="color_H42536a font-size_12px font-weight_600">{label.content}{props.required&&<b className="cl_red">*</b>}</span>
                 <div className={isPasswordType?'d_grid gtc_90S1fr':''}>
-                <input {...props} type={inputType} className={`${props.className}`}/>
+                <input {...props} type={inputType} className={`bs_border-size ${props.className}`}/>
                 {isPasswordType&&(<button type="button" className="bg_Hf1f1f1 p_2px bd_nn outline_nn brd_0_8px_8px_0" onClick={()=>setShowPassword(!showPassword)}>SP</button>)}
                 </div>
             </label>

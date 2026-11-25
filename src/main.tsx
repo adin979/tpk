@@ -5,11 +5,14 @@ import {AuthProvider} from './context/AuthProvider.tsx'
 import './style.js'
 import './App.css'
 import { ToastContainer } from './component/toast/Toast.tsx'
+import { LoadingProvider } from './component/Loading.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthProvider>
-      <ToastContainer/>
-      <App />
-    </AuthProvider>
+    <LoadingProvider>
+      <AuthProvider>
+        <ToastContainer/>
+        <App />
+      </AuthProvider>
+    </LoadingProvider>
   </StrictMode>,
 )

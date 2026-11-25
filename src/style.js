@@ -91,8 +91,10 @@ function cls(nodeList) {
   const propName = keyAbr(cleanProp)//terjemahkan singkatan dari properti/key
   // cek value
   const value = valAbr(replaceChar(rawVal))//terjemahkan singkatan untuk value
+  // CSSEscape untuk karakter khusus
+  const selector=`.${CSS.escape(className)}`
   // buat rule
-  const ruleStr = `.${className} { ${propName} : ${value};`
+  const ruleStr = `${selector} { ${propName} : ${value};`
   switch(mediaPrefix){
     case 'S':
         small([ruleStr])
@@ -188,6 +190,7 @@ function keyAbr(key) {
     ac:'align-content',
     ai:'align-items',
     as:'align-self',
+    anim:'animation',
     b: 'bottom',
     // border
     bb:'border-bottom',
@@ -198,6 +201,7 @@ function keyAbr(key) {
     br:'border-right',
     brd:'border-radius',
     bsd:'box-shadow',
+    bsz:'box-sizing',
     bt:'border-top',
     cl: 'color',
     cur:'cursor',
@@ -242,6 +246,7 @@ function keyAbr(key) {
     trs:'translate',
     trsx:'translateX',
     trsy:'translateY',
+    va:'vertical-align',
     w: 'width',
     z:'z-index'
   };
@@ -252,8 +257,7 @@ function keyAbr(key) {
 // Sparator dalam value css
 // ===============================================================================
 const sparator={ //values css
-  S:' ',
-  __:',',
+  '~':', ',
   _:' ',
   D:'.',
   K:',',
@@ -268,87 +272,73 @@ const sparator={ //values css
 // ===============================================================================
 const replaceChar=(key)=>{
   const func={
-    asoc:'acos',
-    asin:'asin',
-    atan:'atan',
-    atan2:'atan2',
-    attr:'attr',
-    blur:'blur',
     gright:'brightness',
-    calc:'calc',
-    circle:'circle',
-    clamp:'clamp',
     cl:'color',
     clmix:'color-mix',
     conic:'conic-gradient',
     cont:'contras',
-    cos:'cos',
     count:'counter',
     counts:'counters',
     cubic:'cubic-bezier',
     drop:'drop-shadow',
     ell:'ellipe',
-    exp:'exp',
     fit:'fit-content',
     gray:'grayscale',
-    hsl:'hsl',
-    hsla:'hsla',
     hr:'hue-rotate',
-    hwb:'hwb',
-    hypot:'hypot',
-    inset:'inset',
     lh:'line-height',
     linear:'linear-gradient',
-    log:'log',
     mat:'matrix',
     mat3:'matrix3d',
-    max:'max',
-    min:'min',
-    minmax:'minmax',
     opc:'opacity',
     radial:'radial-gradient',
-    rem:'rem',
-    repeat:'repeat',
     repcon:'repeating-conic-gradient',
     reprad:'repeating-radial-gradient',
     replin:'repeating-linear-gradient',
-    rgb:'rgb',
-    rgba:'rgba',
-    rotate:'rotate',
-    rotate3d:'retate3d',
-    rotatex:'rotateX',
-    rotaty:'rotateY',
-    rotatez:'rotateZ',
-    round:'round',
+    rot:'rotate',
+    rot3d:'retate3d',
+    rotx:'rotateX',
+    roty:'rotateY',
+    rotz:'rotateZ',
     sat:'saturate',
-    scale:'scale',
-    scale3d:'scale3d',
-    scalex:'scaleX',
-    scaley:'scaleY',
-    ssepia:'sepia',
+    sc:'scale',
+    sc3d:'scale3d',
+    scx:'scaleX',
+    scy:'scaleY',
     sin:'sin',
-    skew:'skew',
-    skewx:'skewX',
-    skewy:'skewY',
-    sqrt:'sqrt',
     trs:'translate',
     trsx:'translateX',
     trsy:'translateY',
     trsz:'translateZ',
-    url:'url',
-    var:'var',
-    xywh:'xywh'
+    tst:'transition',
   }
-  const indexStrip=key.indexOf('-')
-  const firsStrip=key.substring(0,indexStrip)
-  const firstIndex=firsStrip.split('_').pop()
-  if(Object.keys(func).includes(firstIndex)){
-    const addChar=firsStrip.replace(firstIndex,'')
-    const parent=func[firstIndex]
-    let child =key.substring(indexStrip+1)
-    if(firstIndex === 'var')child=`--${child}`
-    key=`${addChar}${parent}(${replaceChar(child)})`
+//   const indexStrip=key.indexOf(':')
+//   const firsStrip=key.substring(0,indexStrip)
+//   const firstIndex=firsStrip.split('_').pop()
+//   if(Object.keys(func).includes(firstIndex)){
+//     const addChar=firsStrip.replace(firstIndex,'')
+//     const parent=func[firstIndex]
+//     let child =key.substring(indexStrip+1)
+//     if(firstIndex === 'var')child=`--${child}`
+//     key=`${addChar}${parent}(${replaceChar(child)})`
+// }
+const funcKeys=Object.keys(func).sort((a,b)=>b.length-a.length)
+function resolveFunc(parent) {
+  for(const suffix of funcKeys){
+    if(parent.endsWith(suffix)){
+      const prefix = parent.slice(0,-suffix.length)
+      return `${prefix}${func[suffix]}`
+    }
+  }
+  return parent
 }
+const colonIndex = key.indexOf(':')
+if(colonIndex !== -1){
+    const parent = key.substring(0,colonIndex)
+    const child = parent.substring(parent.length-3) === 'var'?`--${key.substring(colonIndex+1)}`: key.substring(colonIndex+1)
+    const resolveParent = resolveFunc(parent)
+    key = `${resolveParent}(${replaceChar(child)})`
+}
+
 key.match(/\d+(?=S)/g)?key=key.replace(/(?<=\d)S/g,'% '):key
 key.match(/\d$/)?key=key+'%':key
   const pattern = new RegExp(Object.keys(sparator).join('|'),'g');

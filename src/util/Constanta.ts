@@ -4,11 +4,11 @@ export interface DataKk {
   nama_kepala_keluarga: string;
   alamat: string;
   rt_rw: string;
-  desa_kelurahan: string;
-  kecamatan: string;
-  kabupaten_kota: string;
-  provinsi: string;
-  image_url:string
+  desa_kelurahan?: string;
+  kecamatan?: string;
+  kabupaten_kota?: string;
+  provinsi?: string;
+  image_url?:string
 }
 
 export interface DataWarga {
